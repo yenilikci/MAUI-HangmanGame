@@ -22,11 +22,16 @@
         </VerticalStackLayout>
         <FlexLayout Grid.Row="1" 
                     Wrap="Wrap" 
+                    BindableLayout.ItemsSource="{Binding Letters}"
                     JustifyContent="SpaceEvenly">
-            <Button HeightRequest="50"
-                    WidthRequest="50"
-                    BackgroundColor="Navy"
-                    Text="A"/>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button HeightRequest="50"
+                                    WidthRequest="50"
+                                    BackgroundColor="Navy"
+                                    Text="{Binding .}"/>  
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
         </FlexLayout>
     </Grid>
 </ContentPage>

@@ -15,6 +15,14 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+    public List<char> Letters { 
+        get => letters; 
+        set
+        {
+            letters = value;
+            OnPropertyChanged();
+        }
+    }
     #endregion
 
     #region Fields
@@ -37,12 +45,15 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     string answer = "";
     private string spotlight;
     List<char> guessed = new List<char>();
+    private List<char> letters = new List<char>();
+
 
     #endregion
 
     public MainPage()
     {
         InitializeComponent();
+        Letters.AddRange("abcdefghijklmnopqrstuvwxyz");
         BindingContext = this;
         PickWord();
         CalculateWorld(answer, guessed);
