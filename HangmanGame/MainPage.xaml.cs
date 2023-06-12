@@ -33,6 +33,22 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
             OnPropertyChanged();    
         }
     }
+    public string GameStatus {
+        get => gameStatus; 
+        set
+        {
+            gameStatus = value;
+            OnPropertyChanged();
+        }
+    }
+    public string CurrentImage { 
+        get => currentImage;
+        set
+        {
+            currentImage = value;
+            OnPropertyChanged();
+        }
+    }
     #endregion
 
     #region Fields
@@ -57,8 +73,10 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     List<char> guessed = new List<char>();
     private List<char> letters = new List<char>();
     private string message;
-
-
+    int mistakes = 0;
+    int maxWrong = 6;
+    private string gameStatus;
+    private string currentImage = "img0.jpg";
     #endregion
 
     public MainPage()
@@ -106,6 +124,26 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
             CalculateWorld(answer, guessed);
             CheckIfGameWon();
         }
+        else if (answer.IndexOf(letter) == -1)
+        {
+            mistakes++;
+            UpdateStatus();
+            CheckIfGameLost();
+            CurrentImage = $"img{mistakes}.jpg";
+        }
+    }
+
+    private void CheckIfGameLost()
+    {
+        if(mistakes == maxWrong)
+        {
+            Message = "You Lost!";
+        }
+    }
+
+    private void UpdateStatus()
+    {
+        GameStatus = $"Errors: {mistakes} of {maxWrong}";
     }
 
     private void CheckIfGameWon()
