@@ -4,10 +4,9 @@
              x:Class="HangmanGame.MainPage">
     <Grid RowDefinitions=".6*,.4*">
         <VerticalStackLayout>
-        <Label
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            Text="Errors: 0 of 6"/>
+            <Label FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Text="Errors: 0 of 6"/>
             <Image Source="img0.jpg"
                    HeightRequest="200"/>
             <Label FontSize="40"
@@ -21,5 +20,13 @@
                     WidthRequest="100"
                     Text="Reset"/>
         </VerticalStackLayout>
+        <FlexLayout Grid.Row="1" 
+                    Wrap="Wrap" 
+                    JustifyContent="SpaceEvenly">
+            <Button HeightRequest="50"
+                    WidthRequest="50"
+                    BackgroundColor="Navy"
+                    Text="A"/>
+        </FlexLayout>
     </Grid>
 </ContentPage>
