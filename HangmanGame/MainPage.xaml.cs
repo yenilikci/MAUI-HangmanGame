@@ -1,12 +1,43 @@
-﻿namespace HangmanGame;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 
-public partial class MainPage : ContentPage
+namespace HangmanGame;
+
+public partial class MainPage : ContentPage, INotifyPropertyChanged
 {
-	int count = 0;
+    #region Fields
+    List<string> words = new List<string>()
+     {
+        "python",
+        "javascript",
+        "maui",
+        "csharp",
+        "mongodb",
+        "sql",
+        "xaml",
+        "word",
+        "excel",
+        "powerpoint",
+        "code",
+        "hotreload",
+        "snippets"
+     };
+    string answer = "";
 
-	public MainPage()
+    #endregion
+
+    public MainPage()
 	{
 		InitializeComponent();
+        PickWord();
 	}
+
+    #region Game Engine
+    private void PickWord()
+    {
+        answer = words[new Random().Next(0, words.Count)];
+        Debug.WriteLine(answer);
+    }
+    #endregion
 }
 
