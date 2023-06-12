@@ -25,23 +25,26 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         }
     }
 
-    public string Message { 
-        get => message; 
+    public string Message
+    {
+        get => message;
         set
         {
             message = value;
-            OnPropertyChanged();    
+            OnPropertyChanged();
         }
     }
-    public string GameStatus {
-        get => gameStatus; 
+    public string GameStatus
+    {
+        get => gameStatus;
         set
         {
             gameStatus = value;
             OnPropertyChanged();
         }
     }
-    public string CurrentImage { 
+    public string CurrentImage
+    {
         get => currentImage;
         set
         {
@@ -119,7 +122,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         {
             guessed.Add(letter);
         }
-        if (answer.IndexOf(letter) > 0)
+        if (answer.IndexOf(letter) >= 0)
         {
             CalculateWorld(answer, guessed);
             CheckIfGameWon();
@@ -135,11 +138,36 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 
     private void CheckIfGameLost()
     {
-        if(mistakes == maxWrong)
+        if (mistakes == maxWrong)
         {
             Message = "You Lost!";
+            DisableLetters();
         }
     }
+
+    private void DisableLetters()
+    {
+        foreach (var children in LettersContainer.Children)
+        {
+            var btn = children as Button;
+            if (btn != null)
+            {
+                btn.IsEnabled = false;
+            }
+        }
+    }
+    private void EnableLetters()
+    {
+        foreach (var children in LettersContainer.Children)
+        {
+            var btn = children as Button;
+            if (btn != null)
+            {
+                btn.IsEnabled = true;
+            }
+        }
+    }
+
 
     private void UpdateStatus()
     {
@@ -148,10 +176,23 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
 
     private void CheckIfGameWon()
     {
-        if(Spotlight.Replace(" ", "") == answer)
+        if (Spotlight.Replace(" ", "") == answer)
         {
             Message = "You Win!";
+            DisableLetters();
         }
+    }
+
+    private void Reset_Clicked(object sender, EventArgs e)
+    {
+        mistakes = 0;
+        guessed = new List<char>();
+        CurrentImage = "img0.jpg";
+        PickWord();
+        CalculateWorld(answer, guessed);
+        Message = "";
+        UpdateStatus();
+        EnableLetters();
     }
 }
 
