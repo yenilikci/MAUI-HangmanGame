@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HangmanGame.MainPage">
     <Grid RowDefinitions=".6*,.4*">
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10">
             <Label FontAttributes="Bold"
                    HorizontalOptions="Center"
                    Text="Errors: 0 of 6"/>
@@ -15,7 +15,7 @@
                    VerticalOptions="Center" />
             <Label FontSize="Large"
                    HorizontalTextAlignment="Center" 
-                   Text="You Lost!"/>
+                   Text="{Binding Message}"/>
             <Button HorizontalOptions="Center"
                     WidthRequest="100"
                     Text="Reset"/>
@@ -29,7 +29,8 @@
                             <Button HeightRequest="50"
                                     WidthRequest="50"
                                     BackgroundColor="Navy"
-                                    Text="{Binding .}"/>  
+                                    Text="{Binding .}"
+                                    Clicked="Button_Clicked"/>  
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
         </FlexLayout>
